@@ -12,6 +12,7 @@ app.use(express.json());
 
 const verifyJWT = (req, res, next) => {
     const authorization = req.headers.authorization;
+    console.log(authorization)
     if(!authorization) {
         return res.status(401).send({error: true, message: "Unauthorized Access"})
     }
@@ -119,6 +120,12 @@ async function run() {
         // menu collection
         app.get('/menu', async(req, res) => {
             const result = await menuCollection.find().toArray();
+            res.send(result);
+        })
+
+        app.post('/menu', verifyJWT, verifyAdmin, async(req, res)=> {
+            const newItem = req.body;
+            const result = await menuCollection.insertOne(newItem);
             res.send(result);
         })
 
