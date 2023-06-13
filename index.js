@@ -5,6 +5,7 @@ require("dotenv").config();
 const stripe = require('stripe')(process.env.PAYMENT_SECRET_KEY);
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const nodemailer = require("nodemailer");
 const port = process.env.PORT || 5000;
 
 // middlewares
